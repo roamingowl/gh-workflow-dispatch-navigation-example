@@ -31,5 +31,5 @@ jobs:
             {
               "build": "true",
               "test": "true",
-              "meta": ${{steps.meta.outputs.json}}
+              "meta": "${{steps.meta.outputs.json}}"
             }
