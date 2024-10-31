@@ -17,6 +17,15 @@ on:
         default: ""
 
 jobs:
+  parent-info:
+    name: Parent Info
+    if: ${{ inputs.meta != '' && fromJSON(inputs.meta).parent-workflow-url != '' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print parent workflow url
+        run: |
+          echo 'Called from workflow: ${{ fromJSON(inputs.meta).parent-workflow-url }}' >> $GITHUB_STEP_SUMMARY
+
   test:
     name: Test
     runs-on: ubuntu-latest
