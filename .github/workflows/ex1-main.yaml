@@ -1,0 +1,35 @@
+name: Example 1 - main
+
+on:
+  workflow_dispatch:
+    inputs: {}
+
+permissions:
+  actions: write
+
+defaults:
+    run:
+        shell: bash
+
+jobs:
+  main-job:
+    name: Main job
+    runs-on: ubuntu-latest
+    steps:
+      - name: Meta data
+        id: meta
+        run: |
+          echo 'json={\"parent-workflow-url\":\"${{github.server_url}}/${{github.repository}}/actions/runs/${{github.run_id}}/attempts/${{github.run_attempt}}\"}' > $GITHUB_OUTPUT
+
+      - uses: the-actions-org/workflow-dispatch@v4
+        with:
+          workflow: ex1-app1.yaml
+          token: ${{ secrets.GITHUB_TOKEN }}
+          wait-for-completion: true
+          display-workflow-run-url: true
+          inputs: |-
+            {
+              "build": "true",
+              "test": "true",
+              "meta": ${{steps.meta.outputs.json}}
+            }

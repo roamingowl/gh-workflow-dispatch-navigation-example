@@ -1,0 +1,34 @@
+name: "Example 1 - App 1"
+
+on:
+  workflow_dispatch:
+    inputs:
+      build:
+        description: "Build the library"
+        required: true
+        default: "true"
+      test:
+        description: "Run the tests"
+        required: true
+        default: "true"
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    if: ${{ inputs.test == 'true' }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fake test
+        shell: bash
+        run: echo "Testing..."
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    if: ${{ inputs.build == 'true' }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fake build
+        shell: bash
+        run: echo "Bundling..."
