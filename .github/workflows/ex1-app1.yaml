@@ -11,6 +11,10 @@ on:
         description: "Run the tests"
         required: true
         default: "true"
+      meta:
+        description: "Metadata"
+        required: false
+        default: ""
 
 jobs:
   test:
