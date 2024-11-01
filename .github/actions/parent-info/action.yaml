@@ -25,6 +25,8 @@ runs:
 
           if (META === '') {
             return '';
+          } else {
+            metaData = JSON.parse(META);
           }
           
           if (!Array.isArray(metaData.workflows)) {
