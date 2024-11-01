@@ -13,7 +13,7 @@ defaults:
 
 jobs:
   main-job:
-    name: Main job
+    name: Main dispatch job
     runs-on: ubuntu-latest
     steps:
       - name: Meta data
@@ -37,4 +37,4 @@ jobs:
 
       - name: Summary
         run: |
-          echo "Dispatched workflow [ex1-app1.yaml](${{steps.dispatch.outputs.workflow-url}}): ${{steps.dispatch.outputs.workflow-conclusion}}" >> $GITHUB_STEP_SUMMARY
+          echo "Dispatched [Example 1 - App 1](${{steps.dispatch.outputs.workflow-url}}) ${{steps.dispatch.outputs.workflow-conclusion}}" >> $GITHUB_STEP_SUMMARY
