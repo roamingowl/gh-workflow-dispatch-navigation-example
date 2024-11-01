@@ -31,14 +31,14 @@ runs:
           
           if (!Array.isArray(metaData.workflows)) {
             metaData.workflows = []
+          } else {          
+            metaData.workflows.push(
+              {
+                "parent-workflow-name":`${context.workflow}`,
+                "parent-workflow-url":`${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}/attempts/${context.runAttempt}`,
+                "parent-workflow-repo":`${context.repo.owner}/${context.repo.repo}`
+              }
+            );
           }
-          
-          metaData.workflows.push(
-            {
-              "parent-workflow-name":`${context.workflow}`,
-              "parent-workflow-url":`${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}/attempts/${context.runAttempt}`,
-              "parent-workflow-repo":`${context.repo.owner}/${context.repo.repo}`
-            }
-          );
           
           return JSON.stringify(metaData);
