@@ -5,9 +5,6 @@ on:
   workflow_dispatch:
     inputs: {}
 
-permissions:
-  actions: write
-
 defaults:
     run:
         shell: bash
@@ -29,7 +26,7 @@ jobs:
         id: dispatch
         with:
           workflow: ex2-app1.yaml
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.ALL_REPOS_PAT }}
           wait-for-completion: true
           display-workflow-run-url: true
           repo: roamingowl/gh-workflow-dispatch-navigation-second-example
