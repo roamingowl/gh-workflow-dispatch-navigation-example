@@ -18,7 +18,7 @@ jobs:
     steps:
       - name: Meta data
         id: meta
-        run: |-
+        run: >
           echo 'json={
             \"parent-workflow-name\":\"${{github.workflow}}\",
             \"parent-workflow-url\":\"${{github.server_url}}/${{github.repository}}/actions/runs/${{github.run_id}}/attempts/${{github.run_attempt}}\"
