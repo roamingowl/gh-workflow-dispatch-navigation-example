@@ -34,7 +34,7 @@ jobs:
       - name: Print parent workflow url
         if: ${{ steps.summary.outputs.message != '' }}
         env:
-          MESSAGE: ${{ steps.summary.outputs.message }}
+          MESSAGE: ${{ fromJSON(steps.summary.outputs.message) }}
         run: |
           echo ${MESSAGE} >> $GITHUB_STEP_SUMMARY
 
