@@ -49,7 +49,7 @@ jobs:
         id: meta
         run: echo 'json={
           \"workflows\":[
-            ${{steps.meta-parent.outputs.json && format('{0},', teps.meta-parent.outputs.json) || ''}}
+            ${{steps.meta-parent.outputs.json && format('{0},', steps.meta-parent.outputs.json) || ''}}
             {
               \"parent-workflow-name\":\"${{github.workflow}}\",
               \"parent-workflow-url\":\"${{github.server_url}}/${{github.repository}}/actions/runs/${{github.run_id}}/attempts/${{github.run_attempt}}\",
