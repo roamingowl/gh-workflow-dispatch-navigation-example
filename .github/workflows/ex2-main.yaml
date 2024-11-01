@@ -1,5 +1,5 @@
-# single repo dispatch example
-name: Example 1 - main
+# multi repo dispatch example
+name: Example 2 - main
 
 on:
   workflow_dispatch:
@@ -21,7 +21,8 @@ jobs:
         id: meta
         run: echo 'json={
             \"parent-workflow-name\":\"${{github.workflow}}\",
-            \"parent-workflow-url\":\"${{github.server_url}}/${{github.repository}}/actions/runs/${{github.run_id}}/attempts/${{github.run_attempt}}\"
+            \"parent-workflow-url\":\"${{github.server_url}}/${{github.repository}}/actions/runs/${{github.run_id}}/attempts/${{github.run_attempt}}\",
+            \"parent-workflow-repo\":\"${{github.repository}}\"
           }' >> $GITHUB_OUTPUT
 
       - uses: the-actions-org/workflow-dispatch@v4
@@ -31,6 +32,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           wait-for-completion: true
           display-workflow-run-url: true
+          repo: roamingowl/gh-workflow-dispatch-navigation-second-example
           wait-for-completion-interval: 10s
           inputs: |-
             {
@@ -41,4 +43,4 @@ jobs:
 
       - name: Summary
         run: |
-          echo 'Dispatched [Example 1 - App 1](${{steps.dispatch.outputs.workflow-url}}). Result: `${{steps.dispatch.outputs.workflow-conclusion}}`' >> $GITHUB_STEP_SUMMARY
+          echo 'Dispatched [second_repo/Example 1 - App 1](${{steps.dispatch.outputs.workflow-url}}). Result: `${{steps.dispatch.outputs.workflow-conclusion}}`' >> $GITHUB_STEP_SUMMARY

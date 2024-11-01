@@ -21,8 +21,8 @@ Workflow file(s):
 - dispatched: [ex1-app1.yaml](.github/workflows/ex1-app1.yaml)
 
 Dispatcher workflow summary:
-![dispatcher_summary](docs/dispatcher_summary.png)
+![dispatcher_summary](docs/ex1_dispatcher_summary.png)
 
 Dispatched workflow summary:
-
+![dispatched_summary](docs/ex1_dispatched_summary.png)
 
