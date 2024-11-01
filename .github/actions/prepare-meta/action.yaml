@@ -23,10 +23,10 @@ runs:
 
           let metaData;
 
-          metaData = JSON.parse(META);
-          
-          if (typeof metaData !== object) {
+          if (META === '') {
             metaData = {};
+          } else {
+            metaData = JSON.parse(META);
           }
           
           if (!Array.isArray(metaData.workflows)) {
