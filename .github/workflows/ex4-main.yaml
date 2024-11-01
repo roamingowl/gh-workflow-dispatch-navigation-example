@@ -33,7 +33,7 @@ jobs:
           inputs: |-
             {
               "app1": "true",
-              "meta": "${{steps.meta.outputs.json}}"
+              "meta": ${{steps.meta.outputs.json}}
             }
 
       - name: Summary
