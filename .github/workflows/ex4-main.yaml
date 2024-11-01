@@ -37,5 +37,6 @@ jobs:
             }
 
       - name: Summary
+        if: ${{ always() }}
         run: |
           echo 'Dispatched [Example 4 - Middle](${{steps.dispatch.outputs.workflow-url}}). Result: `${{steps.dispatch.outputs.workflow-conclusion}}`' >> $GITHUB_STEP_SUMMARY

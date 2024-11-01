@@ -38,3 +38,17 @@ Dispatched workflow summary:
 Token permissions:
 ![token_permissions](docs/ex2_token_permissions.png)
 
+## Example 3: Multi-level dispatch - first try
+
+Multi level dispatch - a static just 3 level dispatching example.
+
+Workflow file(s):
+- dispatcher: [ex3-main.yaml](.github/workflows/ex3-main.yaml)
+- 2nd level dispatcher: [ex3-middle.yaml](.github/workflows/ex3-middle.yaml)
+- dispatched: [ex3-app1.yaml](.github/workflows/ex3-app1.yaml)
+
+Dispatched workflow summary:
+
+
+
+
