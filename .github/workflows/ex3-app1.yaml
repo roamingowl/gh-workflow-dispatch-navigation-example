@@ -1,0 +1,54 @@
+name: "Example 3 - App 1"
+
+on:
+  workflow_dispatch:
+    inputs:
+      build:
+        description: "Build the library"
+        required: true
+        default: "true"
+      test:
+        description: "Run the tests"
+        required: true
+        default: "true"
+      meta:
+        description: "Metadata"
+        required: false
+        default: ""
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  parent-info:
+    name: Parent Info
+    if: ${{ inputs.meta != '' && fromJSON(inputs.meta).workflows != '' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print parent workflow url(s)
+        run: |
+          echo 'Dispatch breadcrumbs: ' >> $GITHUB_STEP_SUMMARY 
+          echo '- [${{fromJSON(inputs.meta).workflows[0].parent-workflow-name}}](${{ fromJSON(inputs.meta).workflows[0].parent-workflow-url }})' >> $GITHUB_STEP_SUMMARY
+          echo '- [${{fromJSON(inputs.meta).workflows[1].parent-workflow-name}}](${{ fromJSON(inputs.meta).workflows[1].parent-workflow-url }})' >> $GITHUB_STEP_SUMMARY
+          echo '- this workflow' >> $GITHUB_STEP_SUMMARY
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    if: ${{ inputs.test == 'true' }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fake test
+        shell: bash
+        run: echo "Testing..."
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    if: ${{ inputs.build == 'true' }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fake build
+        shell: bash
+        run: echo "Bundling..."

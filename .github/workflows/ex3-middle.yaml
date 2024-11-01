@@ -1,0 +1,76 @@
+name: "Example 3 - Middle"
+
+on:
+  workflow_dispatch:
+    inputs:
+      app1:
+        description: "App 1 processing"
+        required: true
+        default: "true"
+      meta:
+        description: "Metadata"
+        required: false
+        default: ""
+
+permissions:
+  actions: write
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  parent-info:
+    name: Parent Info
+    if: ${{ inputs.meta != '' && fromJSON(inputs.meta).workflows != '' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print parent workflow url
+        run: |
+          echo 'Dispatched from workflow: [${{fromJSON(inputs.meta).workflows[0].parent-workflow-name}}](${{ fromJSON(inputs.meta).workflows[0].parent-workflow-url }})' >> $GITHUB_STEP_SUMMARY
+
+  app1:
+    name: Test
+    runs-on: ubuntu-latest
+    if: ${{ inputs.app1 == 'true' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Meta parent
+        if: ${{ inputs.meta != '' && fromJSON(inputs.meta).workflows[0].parent-workflow-url != '' }}
+        id: meta-parent
+        run: echo 'json={
+          \"parent-workflow-name\":\"${{fromJSON(inputs.meta).workflows[0].parent-workflow-name}}\",
+          \"parent-workflow-url\":\"${{fromJSON(inputs.meta).workflows[0].parent-workflow-url}}\",
+          \"parent-workflow-repo\":\"${{fromJSON(inputs.meta).workflows[0].parent-workflow-repo}}\"
+          }' >> $GITHUB_OUTPUT
+
+      - name: Meta data
+        id: meta
+        run: echo 'json={
+          \"workflows\":[
+            ${{steps.meta-parent.outputs.json && format('{0},', teps.meta-parent.outputs.json) || ''}}
+            {
+              \"parent-workflow-name\":\"${{github.workflow}}\",
+              \"parent-workflow-url\":\"${{github.server_url}}/${{github.repository}}/actions/runs/${{github.run_id}}/attempts/${{github.run_attempt}}\",
+              \"parent-workflow-repo\":\"${{github.repository}}\"
+            }
+          ]}' >> $GITHUB_OUTPUT
+
+      - uses: the-actions-org/workflow-dispatch@v4
+        id: dispatch
+        with:
+          workflow: ex3-app1.yaml
+          token: ${{ secrets.GITHUB_TOKEN }}
+          wait-for-completion: true
+          display-workflow-run-url: true
+          wait-for-completion-interval: 10s
+          inputs: |-
+            {
+              "app1": "true",
+              "meta": "${{steps.meta.outputs.json}}"
+            }
+
+      - name: Summary
+        run: |
+          echo 'Dispatched [Example 3 - Middle](${{steps.dispatch.outputs.workflow-url}}). Result: `${{steps.dispatch.outputs.workflow-conclusion}}`' >> $GITHUB_STEP_SUMMARY
