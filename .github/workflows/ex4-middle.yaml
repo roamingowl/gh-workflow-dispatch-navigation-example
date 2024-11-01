@@ -36,7 +36,7 @@ jobs:
         env:
           MESSAGE: ${{ steps.summary.outputs.message }}
         run: |
-          echo "${MESSAGE}" >> $GITHUB_STEP_SUMMARY
+          echo ${MESSAGE} >> $GITHUB_STEP_SUMMARY
 
   app1:
     name: Middle dispatch job
