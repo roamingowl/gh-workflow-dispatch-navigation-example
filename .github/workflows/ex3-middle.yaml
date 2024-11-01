@@ -67,7 +67,8 @@ jobs:
           wait-for-completion-interval: 10s
           inputs: |-
             {
-              "app1": "true",
+              "test": "true",
+              "build": "true",
               "meta": "${{steps.meta.outputs.json}}"
             }
 
