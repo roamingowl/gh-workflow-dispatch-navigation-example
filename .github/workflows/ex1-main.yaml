@@ -28,6 +28,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           wait-for-completion: true
           display-workflow-run-url: true
+          wait-for-completion-interval: 10s
           inputs: |-
             {
               "build": "true",
