@@ -1,5 +1,5 @@
 # single repo dispatch example
-name: Example 1 - main
+name: Example 1 - Main
 
 on:
   workflow_dispatch:
