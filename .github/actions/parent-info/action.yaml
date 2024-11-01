@@ -7,8 +7,8 @@ inputs:
     default: ""
 
 outputs:
-  summary:
-    message: ${{ steps.script.outputs.result }}
+  message:
+    value: ${{ steps.script.outputs.result }}
 
 runs:
   using: "composite"
