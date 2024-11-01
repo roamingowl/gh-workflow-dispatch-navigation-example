@@ -22,6 +22,7 @@ jobs:
           echo 'json={\"parent-workflow-name\":\"${{github.workflow}}\",\"parent-workflow-url\":\"${{github.server_url}}/${{github.repository}}/actions/runs/${{github.run_id}}/attempts/${{github.run_attempt}}\"}' > $GITHUB_OUTPUT
 
       - uses: the-actions-org/workflow-dispatch@v4
+        id: dispatch
         with:
           workflow: ex1-app1.yaml
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -33,3 +34,7 @@ jobs:
               "test": "true",
               "meta": "${{steps.meta.outputs.json}}"
             }
+
+      - name: Summary
+        run: |
+          echo "Dispatched workflow [ex1-app1.yaml](${{steps.dispatch.outputs.workflow-url}}): ${{steps.dispatch.outputs.workflow-conclusion}}" >> $GITHUB_STEP_SUMMARY
