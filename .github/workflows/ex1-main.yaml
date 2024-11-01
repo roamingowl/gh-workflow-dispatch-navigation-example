@@ -40,4 +40,4 @@ jobs:
 
       - name: Summary
         run: |
-          echo "Dispatched [Example 1 - App 1](${{steps.dispatch.outputs.workflow-url}}) ${{steps.dispatch.outputs.workflow-conclusion}}" >> $GITHUB_STEP_SUMMARY
+          echo 'Dispatched [Example 1 - App 1](${{steps.dispatch.outputs.workflow-url}}). Result: `${{steps.dispatch.outputs.workflow-conclusion}}`' >> $GITHUB_STEP_SUMMARY
