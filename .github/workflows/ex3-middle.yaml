@@ -30,7 +30,7 @@ jobs:
           echo 'Dispatched from workflow: [${{fromJSON(inputs.meta).workflows[0].parent-workflow-name}}](${{ fromJSON(inputs.meta).workflows[0].parent-workflow-url }})' >> $GITHUB_STEP_SUMMARY
 
   app1:
-    name: Test
+    name: Middle dispatch job
     runs-on: ubuntu-latest
     if: ${{ inputs.app1 == 'true' }}
     steps:
@@ -74,4 +74,4 @@ jobs:
 
       - name: Summary
         run: |
-          echo 'Dispatched [Example 3 - Middle](${{steps.dispatch.outputs.workflow-url}}). Result: `${{steps.dispatch.outputs.workflow-conclusion}}`' >> $GITHUB_STEP_SUMMARY
+          echo 'Dispatched [Example 3 - App 1](${{steps.dispatch.outputs.workflow-url}}). Result: `${{steps.dispatch.outputs.workflow-conclusion}}`' >> $GITHUB_STEP_SUMMARY
