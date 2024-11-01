@@ -1,0 +1,70 @@
+name: "Example 4 - Middle"
+
+on:
+  workflow_dispatch:
+    inputs:
+      app1:
+        description: "App 1 processing"
+        required: true
+        default: "true"
+      meta:
+        description: "Metadata"
+        required: false
+        default: ""
+
+permissions:
+  actions: write
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  parent-info:
+    name: Parent Info
+    if: ${{ inputs.meta != '' && fromJSON(inputs.meta).workflows != '' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/parent-info
+        id: summary
+        with:
+          meta: ${{ inputs.meta }}
+
+      - name: Print parent workflow url
+        if: ${{ steps.summary.outputs.message != '' }}
+        env:
+          MESSAGE: ${{ steps.summary.outputs.message }}
+        run: |
+          echo "${MESSAGE}" >> $GITHUB_STEP_SUMMARY
+
+  app1:
+    name: Middle dispatch job
+    runs-on: ubuntu-latest
+    if: ${{ inputs.app1 == 'true' }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Meta data
+        id: meta
+        uses: ./.github/actions/prepare-meta
+        with:
+          meta: ${{ inputs.meta }}
+
+      - uses: the-actions-org/workflow-dispatch@v4
+        id: dispatch
+        with:
+          workflow: ex4-app1.yaml
+          token: ${{ secrets.GITHUB_TOKEN }}
+          wait-for-completion: true
+          display-workflow-run-url: true
+          wait-for-completion-interval: 10s
+          inputs: |-
+            {
+              "test": "true",
+              "build": "true",
+              "meta": "${{steps.meta.outputs.json}}"
+            }
+
+      - name: Summary
+        run: |
+          echo 'Dispatched [Example 4 - App 1](${{steps.dispatch.outputs.workflow-url}}). Result: `${{steps.dispatch.outputs.workflow-conclusion}}`' >> $GITHUB_STEP_SUMMARY

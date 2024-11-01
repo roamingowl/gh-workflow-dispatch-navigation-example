@@ -1,0 +1,40 @@
+name: Parent workflow info with multilevel support
+description: Parent workflow info with multilevel support
+inputs:
+  meta:
+    description: "Metadata JSON"
+    required: false
+    default: ""
+
+outputs:
+  summary:
+    message: ${{ steps.script.outputs.result }}
+
+runs:
+  using: "composite"
+  steps:
+    - id: script
+      uses: actions/github-script@v7
+      env:
+        META: ${{ inputs.meta }}
+      with:
+        script: |
+          let { META } = process.env
+
+          let metaData;
+
+          if (META === '') {
+            return '';
+          }
+          
+          if (!Array.isArray(metaData.workflows)) {
+            return '';
+          }
+          
+          let summary = 'Dispatch breadcrumbs:\n';
+          
+          metaData.workflows.forEach((workflow) => {
+            summary += `- [${workflow['parent-workflow-name']}](${workflow['parent-workflow-url']})\n`;
+          });
+          
+          return summary;
