@@ -43,4 +43,4 @@ jobs:
 
       - name: Summary
         run: |
-          echo 'Dispatched [second_repo/Example 1 - App 1](${{steps.dispatch.outputs.workflow-url}}). Result: `${{steps.dispatch.outputs.workflow-conclusion}}`' >> $GITHUB_STEP_SUMMARY
+          echo 'Dispatched [second_repo/Example 2 - App 1](${{steps.dispatch.outputs.workflow-url}}). Result: `${{steps.dispatch.outputs.workflow-conclusion}}`' >> $GITHUB_STEP_SUMMARY
