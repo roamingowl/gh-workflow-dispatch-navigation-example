@@ -1,6 +1,6 @@
 # GitHub workflow dispatch navigation example
 
-> [!INFO] 
+> [!NOTE] 
 > This is an example rpo to my blog post How to connect dispatching and dispatched workflows on Hashnode
 
 
@@ -25,4 +25,16 @@ Dispatcher workflow summary:
 
 Dispatched workflow summary:
 ![dispatched_summary](docs/ex1_dispatched_summary.png)
+
+## Example 2: Dispatching workflow from another repository
+
+Workflow file(s):
+- dispatcher: [ex2-main.yaml](.github/workflows/ex2-main.yaml)
+- dispatched: [gh-workflow-dispatch-navigation-second-example/ex2-app1.yaml](https://github.com/roamingowl/gh-workflow-dispatch-navigation-second-example/blob/main/.github/workflows/ex2-app1.yaml)
+
+Dispatched workflow summary:
+![dispatched_summary](docs/ex2_dispatched_summary.png)
+
+Token permissions:
+![token_permissions](docs/ex2_token_permissions.png)
 
