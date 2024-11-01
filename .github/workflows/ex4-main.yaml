@@ -1,0 +1,41 @@
+# multi-level dispatch example with some actions refactoring
+name: Example 4 - Main
+
+on:
+  workflow_dispatch:
+    inputs: {}
+
+permissions:
+  actions: write
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  main-job:
+    name: Main dispatch job
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Meta data
+        id: meta
+        uses: ./.github/actions/prepare-meta
+
+      - uses: the-actions-org/workflow-dispatch@v4
+        id: dispatch
+        with:
+          workflow: ex3-middle.yaml
+          token: ${{ secrets.GITHUB_TOKEN }}
+          wait-for-completion: true
+          display-workflow-run-url: true
+          wait-for-completion-interval: 10s
+          inputs: |-
+            {
+              "app1": "true",
+              "meta": "${{steps.meta.outputs.json}}"
+            }
+
+      - name: Summary
+        run: |
+          echo 'Dispatched [Example 4 - Middle](${{steps.dispatch.outputs.workflow-url}}). Result: `${{steps.dispatch.outputs.workflow-conclusion}}`' >> $GITHUB_STEP_SUMMARY
