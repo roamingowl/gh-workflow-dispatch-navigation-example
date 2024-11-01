@@ -28,7 +28,7 @@ jobs:
       - uses: the-actions-org/workflow-dispatch@v4
         id: dispatch
         with:
-          workflow: ex1-app1.yaml
+          workflow: ex2-app1.yaml
           token: ${{ secrets.GITHUB_TOKEN }}
           wait-for-completion: true
           display-workflow-run-url: true
