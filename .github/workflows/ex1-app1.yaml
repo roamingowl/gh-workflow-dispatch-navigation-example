@@ -24,7 +24,7 @@ jobs:
     steps:
       - name: Print parent workflow url
         run: |
-          echo 'Called from workflow: [fromJSON(inputs.meta).parent-workflow-name](${{ fromJSON(inputs.meta).parent-workflow-url }})' >> $GITHUB_STEP_SUMMARY
+          echo 'Called from workflow: [${{fromJSON(inputs.meta).parent-workflow-name}}](${{ fromJSON(inputs.meta).parent-workflow-url }})' >> $GITHUB_STEP_SUMMARY
 
   test:
     name: Test
