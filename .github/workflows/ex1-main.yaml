@@ -21,7 +21,7 @@ jobs:
         run: echo 'json={
             \"parent-workflow-name\":\"${{github.workflow}}\",
             \"parent-workflow-url\":\"${{github.server_url}}/${{github.repository}}/actions/runs/${{github.run_id}}/attempts/${{github.run_attempt}}\"
-          }' > $GITHUB_OUTPUT
+          }' >> $GITHUB_OUTPUT
 
       - uses: the-actions-org/workflow-dispatch@v4
         id: dispatch
