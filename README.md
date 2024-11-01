@@ -20,6 +20,9 @@ Workflow file(s):
 - dispatcher: [ex1-main.yaml](.github/workflows/ex1-main.yaml)
 - dispatched: [ex1-app1.yaml](.github/workflows/ex1-app1.yaml)
 
-Dispatcher summery:
+Dispatcher workflow summary:
+![dispatcher_summary](docs/dispatcher_summary.png)
+
+Dispatched workflow summary:
 
 
