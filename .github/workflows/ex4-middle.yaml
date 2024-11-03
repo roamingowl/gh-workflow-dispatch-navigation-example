@@ -64,7 +64,7 @@ jobs:
             {
               "test": "true",
               "build": "true",
-              "meta": "${{steps.meta.outputs.json}}"
+              "meta": ${{steps.meta.outputs.json}}
             }
 
       - name: Summary
