@@ -33,6 +33,8 @@ runs:
             metaData.workflows = []
           }
           
+          console.log(JSON.stringify(context, null, 2));
+          
           metaData.workflows.push(
             {
               "parent-workflow-name":`${context.workflow}`,
