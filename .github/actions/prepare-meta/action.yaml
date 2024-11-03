@@ -33,12 +33,17 @@ runs:
             metaData.workflows = []
           }
           
-          console.log(JSON.stringify(context, null, 2));
+          //some bug in the action https://github.com/actions/toolkit/blob/77f247b2f3e5d82ecd0e27573ef30c75d5d9a2cb/packages/github/src/context.ts#L48
+          //this should not be undefined
+          let attempt = context.runAttempt;
+          if (typeof attempt === 'undefined') {
+            attempt = 1;
+          }
           
           metaData.workflows.push(
             {
               "parent-workflow-name":`${context.workflow}`,
-              "parent-workflow-url":`${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}/attempts/${context.runAttempt}`,
+              "parent-workflow-url":`${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}/attempts/${attempt}`,
               "parent-workflow-repo":`${context.repo.owner}/${context.repo.repo}`
             }
           );
