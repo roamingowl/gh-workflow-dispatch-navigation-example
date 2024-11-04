@@ -18,25 +18,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Meta data
-        id: meta
-        uses: ./.github/actions/prepare-meta
 
-      - uses: the-actions-org/workflow-dispatch@v4
-        id: dispatch
+      - name: Dispatch
+        uses: ./.github/actions/dispatch-with-summary
         with:
-          workflow: ex4-middle.yaml
+          workflow-inputs: |
+            "app1": "true"
+          workflow-name: Example 4 - Middle
           token: ${{ secrets.GITHUB_TOKEN }}
-          wait-for-completion: true
-          display-workflow-run-url: true
-          wait-for-completion-interval: 10s
-          inputs: |-
-            {
-              "app1": "true",
-              "meta": ${{steps.meta.outputs.json}}
-            }
-
-      - name: Summary
-        if: ${{ always() }}
-        run: |
-          echo 'Dispatched [Example 4 - Middle](${{steps.dispatch.outputs.workflow-url}}). Result: `${{steps.dispatch.outputs.workflow-conclusion}}`' >> $GITHUB_STEP_SUMMARY
+          workflow-file: ex4-middle.yaml
