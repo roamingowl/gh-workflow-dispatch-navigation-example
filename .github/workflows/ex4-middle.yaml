@@ -45,27 +45,14 @@ jobs:
     if: ${{ inputs.app1 == 'true' }}
     steps:
       - uses: actions/checkout@v4
-      - name: Meta data
-        id: meta
-        uses: ./.github/actions/prepare-meta
+
+      - name: Dispatch
+        uses: ./.github/actions/dispatch-with-summary
         with:
           meta: ${{ inputs.meta }}
-
-      - uses: the-actions-org/workflow-dispatch@v4
-        id: dispatch
-        with:
-          workflow: ex4-app1.yaml
-          token: ${{ secrets.GITHUB_TOKEN }}
-          wait-for-completion: true
-          display-workflow-run-url: true
-          wait-for-completion-interval: 10s
-          inputs: |-
-            {
+          workflow-inputs: |
               "test": "true",
-              "build": "true",
-              "meta": ${{steps.meta.outputs.json}}
-            }
-
-      - name: Summary
-        run: |
-          echo 'Dispatched [Example 4 - App 1](${{steps.dispatch.outputs.workflow-url}}). Result: `${{steps.dispatch.outputs.workflow-conclusion}}`' >> $GITHUB_STEP_SUMMARY
+              "build": "true"
+          workflow-name: Example 4 - App 1
+          workflow-file: ex4-app1.yaml
+          token: ${{ secrets.GITHUB_TOKEN }}
