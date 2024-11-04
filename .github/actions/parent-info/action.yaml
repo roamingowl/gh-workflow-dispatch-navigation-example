@@ -1,14 +1,14 @@
-name: Parent workflow info with multilevel support
-description: Parent workflow info with multilevel support
+name: Print parent workflow info to job summary with multilevel support
+description: Print parent workflow info to job summary with multilevel support
 inputs:
   meta:
     description: "Metadata JSON"
     required: false
     default: ""
 
-outputs:
-  message:
-    value: ${{ steps.script.outputs.result }}
+#outputs:
+#  message:
+#    value: ${{ steps.script.outputs.result }}
 
 runs:
   using: "composite"
@@ -40,3 +40,12 @@ runs:
           });
           
           return summary;
+    - name: Print parent workflow url
+      if: ${{ steps.script.outputs.result != '' }}
+      env:
+        MESSAGE: ${{ fromJSON(steps.summary.outputs.message) }}
+      shell: bash
+      run: |
+        while IFS= read -r line; do
+          echo $line >> $GITHUB_STEP_SUMMARY
+        done <<< "$MESSAGE"  

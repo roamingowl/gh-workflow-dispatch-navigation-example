@@ -27,18 +27,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/parent-info
-        id: summary
         with:
           meta: ${{ inputs.meta }}
 
-      - name: Print parent workflow url
-        if: ${{ steps.summary.outputs.message != '' }}
-        env:
-          MESSAGE: ${{ fromJSON(steps.summary.outputs.message) }}
-        run: |
-          while IFS= read -r line; do
-            echo $line >> $GITHUB_STEP_SUMMARY
-          done <<< "$MESSAGE"          
+#      - name: Print parent workflow url
+#        if: ${{ steps.summary.outputs.message != '' }}
+#        env:
+#          MESSAGE: ${{ fromJSON(steps.summary.outputs.message) }}
+#        run: |
+#          while IFS= read -r line; do
+#            echo $line >> $GITHUB_STEP_SUMMARY
+#          done <<< "$MESSAGE"
 
   app1:
     name: Middle dispatch job

@@ -54,7 +54,7 @@ Dispatched workflow summary:
 ![dispatched_summary](docs/ex3_dispatched_summary.png)
 
 
-## Example 3: Multi-level dispatch - second try
+## Example 4: Multi-level dispatch - second try
 
 Multi level dispatch - with custom actions
 
@@ -66,6 +66,7 @@ Workflow file(s):
 Actions:
 - parent info [action](.github/actions/parent-info) - displays parent info in dispatched workflow - supports any level of dispatching
 - metadata prepare [action](./.github/actions/prepare-meta) - automatically prepares metadata and construction an array of dispatch info
+
 
 
 

@@ -2,10 +2,12 @@
   "name": "gh-workflow-dispatch-navigation-example",
   "version": "1.0.0",
   "description": "> [!INFO]  > This is an example rpo to my blog post How to connect dispatching and dispatched workflows on Hashnode",
-  "main": "index.js",
+  "workspaces": [
+    "action-*"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "roamingowl",
   "license": "ISC"
 }
