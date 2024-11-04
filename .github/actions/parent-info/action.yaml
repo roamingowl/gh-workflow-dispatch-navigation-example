@@ -39,6 +39,8 @@ runs:
             summary += `- [${workflow['parent-workflow-name']}](${workflow['parent-workflow-url']})\n`;
           });
           
+          summary += 'this workflow\n';
+          
           return summary;
     - name: Print parent workflow url
       if: ${{ steps.script.outputs.result != '' }}
