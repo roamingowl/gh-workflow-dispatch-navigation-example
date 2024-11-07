@@ -36,7 +36,7 @@ runs:
         meta: ${{ inputs.meta }}
 
     - name: Merge inputs
-      id: prepare
+      id: merge-inputs
       env:
         META_JSON: ${{ steps.meta.outputs.json }}
         WORKFLOW_INPUTS_JSON: ${{ inputs.workflow-inputs }}
@@ -46,7 +46,7 @@ runs:
           const { META_JSON, WORKFLOW_INPUTS_JSON } = process.env;
           
           const parsedInputs = JSON.parse(WORKFLOW_INPUTS_JSON);
-          const parsedMeta = JSON.parse(META_JSON);
+          const parsedMeta = JSON.parse(JSON.parse(META_JSON));
           
           console.log(`[DEBUG]Parsed inputs: ${JSON.stringify(parsedInputs)}`);
           console.log(`[DEBUG]Parsed meta: ${JSON.stringify(parsedMeta)}`);
@@ -66,7 +66,7 @@ runs:
         display-workflow-run-url: true
         wait-for-completion-interval: 10s
         inputs: |-
-          ${{ steps.prepare.outputs.result }}
+          ${{ steps.merge-inputs.outputs.result }}
 
     - name: Summary
       shell: bash
