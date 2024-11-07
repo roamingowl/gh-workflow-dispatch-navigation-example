@@ -3,7 +3,7 @@ name: Example 3 - Main
 
 on:
   workflow_dispatch:
-    inputs: {}
+    inputs: { }
 
 permissions:
   actions: write
@@ -20,12 +20,12 @@ jobs:
       - name: Meta data
         id: meta
         run: echo 'json={
-            \"workflows\":[
-            {
-              \"parent-workflow-name\":\"${{github.workflow}}\",
-              \"parent-workflow-url\":\"${{github.server_url}}/${{github.repository}}/actions/runs/${{github.run_id}}/attempts/${{github.run_attempt}}\",
-              \"parent-workflow-repo\":\"${{github.repository}}\"
-            }
+          \"workflows\":[
+          {
+            \"parent-workflow-name\":\"${{github.workflow}}\",
+            \"parent-workflow-url\":\"${{github.server_url}}/${{github.repository}}/actions/runs/${{github.run_id}}/attempts/${{github.run_attempt}}\",
+            \"parent-workflow-repo\":\"${{github.repository}}\"
+          }
           ]}' >> $GITHUB_OUTPUT
 
       - uses: the-actions-org/workflow-dispatch@v4

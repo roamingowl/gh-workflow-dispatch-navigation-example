@@ -1,4 +1,4 @@
-name: "Example 4 - Middle"
+name: "Example 4 - 2nd level"
 
 on:
   workflow_dispatch:
@@ -8,7 +8,7 @@ on:
         required: true
         default: "true"
       meta:
-        description: "Metadata"
+        description: "Metadata from the previous workflow"
         required: false
         default: ""
 
@@ -22,6 +22,7 @@ defaults:
 jobs:
   parent-info:
     name: Parent Info
+    # process meta only of there are any
     if: ${{ inputs.meta != '' && fromJSON(inputs.meta).workflows != '' }}
     runs-on: ubuntu-latest
     steps:
@@ -37,13 +38,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # 2nd level dispatch
       - name: Dispatch
         uses: ./.github/actions/dispatch-with-summary
         with:
           meta: ${{ inputs.meta }}
           workflow-inputs: |
+            {
               "test": "true",
               "build": "true"
+            }
           workflow-name: Example 4 - App 1
           workflow-file: ex4-app1.yaml
           token: ${{ secrets.GITHUB_TOKEN }}

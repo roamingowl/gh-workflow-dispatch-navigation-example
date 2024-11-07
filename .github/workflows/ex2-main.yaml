@@ -3,11 +3,11 @@ name: Example 2 - Main
 
 on:
   workflow_dispatch:
-    inputs: {}
+    inputs: { }
 
 defaults:
-    run:
-        shell: bash
+  run:
+    shell: bash
 
 jobs:
   main-job:

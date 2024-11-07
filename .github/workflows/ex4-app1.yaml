@@ -31,15 +31,6 @@ jobs:
         with:
           meta: ${{ inputs.meta }}
 
-#      - name: Print parent workflow url
-#        if: ${{ steps.summary.outputs.message != '' }}
-#        env:
-#          MESSAGE: ${{ fromJSON(steps.summary.outputs.message) }}
-#        run: |
-#          while IFS= read -r line; do
-#            echo $line >> $GITHUB_STEP_SUMMARY
-#          done <<< "$MESSAGE"
-
   test:
     name: Test
     runs-on: ubuntu-latest

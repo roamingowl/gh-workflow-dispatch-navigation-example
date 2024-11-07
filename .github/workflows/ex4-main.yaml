@@ -3,7 +3,7 @@ name: Example 4 - Main
 
 on:
   workflow_dispatch:
-    inputs: {}
+    inputs: { }
 
 permissions:
   actions: write
@@ -17,13 +17,17 @@ jobs:
     name: Main dispatch job
     runs-on: ubuntu-latest
     steps:
+      # to use local actions, you have to checkout the repository first
+      # if the job uses only actions in different repo, first checkout is not necessary
       - uses: actions/checkout@v4
 
       - name: Dispatch
         uses: ./.github/actions/dispatch-with-summary
         with:
           workflow-inputs: |
-            "app1": "true"
+            {
+              "app1": "true"
+            }
           workflow-name: Example 4 - Middle
           token: ${{ secrets.GITHUB_TOKEN }}
           workflow-file: ex4-middle.yaml
