@@ -50,6 +50,8 @@ runs:
           
           const inputs = {...parsedInputs, ...parsedMeta};
           
+          console.log(`[DEBUG]Workflow inputs: ${JSON.stringify(inputs)}`); 
+          
           return JSON.stringify(inputs);
 
     - uses: the-actions-org/workflow-dispatch@v4
