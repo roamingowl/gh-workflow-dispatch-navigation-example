@@ -64,7 +64,7 @@ runs:
         display-workflow-run-url: true
         wait-for-completion-interval: 10s
         inputs: |-
-          ${{ steps.merge-inputs.outputs.result }}
+          ${{ fromJSON(steps.merge-inputs.outputs.result) }}
 
     - name: Summary
       shell: bash
