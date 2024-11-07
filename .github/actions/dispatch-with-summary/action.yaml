@@ -48,6 +48,9 @@ runs:
           const parsedInputs = JSON.parse(WORKFLOW_INPUTS_JSON);
           const parsedMeta = JSON.parse(META_JSON);
           
+          console.log(`[DEBUG]Parsed inputs: ${JSON.stringify(parsedInputs)}`);
+          console.log(`[DEBUG]Parsed meta: ${JSON.stringify(parsedMeta)}`);
+          
           const inputs = {...parsedInputs, ...parsedMeta};
           
           console.log(`[DEBUG]Workflow inputs: ${JSON.stringify(inputs)}`); 
