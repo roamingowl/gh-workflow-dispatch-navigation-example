@@ -41,15 +41,16 @@ runs:
         META_JSON: ${{ steps.meta.outputs.json }}
         WORKFLOW_INPUTS_JSON: ${{ inputs.workflow-inputs }}
       uses: actions/github-script@v7
-      run: |
-        const { META_JSON, WORKFLOW_INPUTS_JSON } = process.env;
-        
-        const parsedInputs = JSON.parse(WORKFLOW_INPUTS_JSON);
-        const parsedMeta = JSON.parse(META_JSON);
-        
-        const inputs = {...parsedInputs, ...parsedMeta};
-        
-        return JSON.stringify(inputs);
+      with:
+        script: | 
+          const { META_JSON, WORKFLOW_INPUTS_JSON } = process.env;
+          
+          const parsedInputs = JSON.parse(WORKFLOW_INPUTS_JSON);
+          const parsedMeta = JSON.parse(META_JSON);
+          
+          const inputs = {...parsedInputs, ...parsedMeta};
+          
+          return JSON.stringify(inputs);
 
     - uses: the-actions-org/workflow-dispatch@v4
       id: dispatch
